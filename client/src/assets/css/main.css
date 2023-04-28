@@ -1,0 +1,13 @@
+.btn {
+    border-radius:  4px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.form-floating input{
+    border-radius:  4px;
+}
+
+a {
+    text-decoration: none;
+}
