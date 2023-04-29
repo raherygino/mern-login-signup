@@ -5,8 +5,35 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { NavLink } from 'react-router-dom';
 import Input from '../form/Input';
+import axios from 'axios';
+import { useState } from 'react';
 
-const Login = () => {
+const Login = ({setLoginUser}) => {
+
+    const [user,setUser] = useState({
+        email:"",
+        password: ""
+    })
+
+    const handleChange = e =>{
+    const {name,value} = e.target
+    setUser({
+        ...user, //spread operator 
+        [name]:value
+        })
+    }
+
+    const login =()=>{
+        console.log(user);
+        axios.post("http://localhost:6969/Login",user)
+        .then(res=>{ //alert(res.data.message)
+            console.log(res.data);
+        setLoginUser(user);
+        
+
+    })
+    }
+
     return (
      <>
         <Container>
@@ -22,14 +49,18 @@ const Login = () => {
                             <Input
                                 id="email"
                                 type="email"
+                                value={user.email}
+                                onChange={handleChange}
                                 label="Email"/>
 
                             <Input
                                 id="password"
                                 type="password"
+                                value={user.password}
+                                onChange={handleChange}
                                 label="Password"/>
 
-                            <Button variant="primary"> Login
+                            <Button variant="primary"  onClick={login}> Login
                                 <svg 
                                     xmlns="http://www.w3.org/2000/svg" 
                                     width="16"

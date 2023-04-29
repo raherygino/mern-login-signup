@@ -21,7 +21,8 @@ mongoose.connect("mongodb://localhost:27017/auth",{
 
 //user schema 
 const userSchema = new mongoose.Schema({
-    name: String,
+    lastname: String,
+    firstname: String,
     email: String,
     password: String
 })
@@ -31,7 +32,7 @@ const User = new mongoose.model("User", userSchema)
 //routes routes
 app.post("/Login",(req,res)=>{
     const {email,password} =req.body;
-    User.findone({email:email},(err,user)=>{
+    User.findOne({email:email},(err,user)=>{
         if(user){
            if(password === user.password){
                res.send({message:"login sucess",user:user})
@@ -45,12 +46,12 @@ app.post("/Login",(req,res)=>{
 });
 app.post("/Register",(req,res)=>{
     console.log(req.body) 
-    const {name,email,password} =req.body;
+    const {lastname, firstname,email,password} =req.body;
     User.findOne({email:email},(err,user)=>{
         if(user){
             res.send({message:"user already exist"})
         }else {
-            const user = new User({name,email,password})
+            const user = new User({lastname, firstname,email,password})
             user.save(err=>{
                 if(err){
                     res.send(err)

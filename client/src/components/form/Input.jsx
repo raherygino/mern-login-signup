@@ -8,7 +8,9 @@ const Input = (props) => {
                 id={ props.id }
                 type={ props.type }
                 name={ props.id }
-                placeholder={ props.label } />
+                value={ props.value }
+                placeholder={ props.label }
+                onChange={ props.onChange }/>
             <label htmlFor={ props.id }>{ props.label }</label>
         </Form.Floating>
     );
